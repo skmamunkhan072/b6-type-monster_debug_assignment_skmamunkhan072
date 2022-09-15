@@ -88,21 +88,19 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">
-                    Difference in local storage and session storage
+                    How does javascript event loop work
                   </h5>
                   <p class="card-text">
-                    localStorage - use for long term use. sessionStorage - use
-                    when you need to store somthing that changes or somthing
-                    temporar.The only difference is that localStorage has a
-                    different expiration time, sessionStorage will only be
-                    accessible while and by the window that created it is open.
-                    localStorage lasts until you delete it or the user deletes
-                    it. Lets say that you wanted to save a login username and
-                    password you would want to use sessionStorageover
-                    localStorage for security reasons (ie. another person
-                    accessing their account at a later time). But if you wanted
-                    to save a user's settings on their machine you would
-                    probably want localStorage. All in all:
+                    This article focuses on one of the very important but seldom
+                    understood concepts or terms in JavaScript. The EVENT LOOP!.
+                    Writing asynchronous code can not be avoided in JavaScript,
+                    but why does a code running asynchronously really mean? i.e.
+                    The Event Loop The Event Loop has one simple job — to
+                    monitor the Call Stack and the Callback Queue. If the Call
+                    Stack is empty, the Event Loop will take the first event
+                    from the queue and will push it to the Call Stack, which
+                    effectively runs it. Such an iteration is called a tick in
+                    the Event Loop
                   </p>
                 </div>
               </div>
