@@ -19,6 +19,7 @@ fetch("./texts.json")
     question.innerHTML = questionText;
   });
 
+let vul = 0;
 // checks the user typed character and displays accordingly
 const typeController = (e) => {
   const newLetter = e.key;
@@ -50,6 +51,8 @@ const typeController = (e) => {
     display.innerHTML += `<span class="red">${
       newLetter === " " ? "▪" : newLetter
     }</span>`;
+    errorCount++;
+    vul = 1;
   }
 
   // check if given question text is equal to user typed text
@@ -57,6 +60,8 @@ const typeController = (e) => {
     gameOver();
   }
 };
+console.log(errorCount);
+console.log(vul);
 
 const validate = (key) => {
   if (key === questionText[userText.length - 1]) {
@@ -73,6 +78,12 @@ const gameOver = () => {
   const finishTime = new Date().getTime();
   const timeTaken = (finishTime - startTime) / 1000;
 
+  // restart everything
+  startTime = null;
+  errorCount = 0;
+  userText = "";
+  display.classList.add("inactive");
+  console.log(errorCount);
   // show result modal
   resultModal.innerHTML = "";
   resultModal.classList.toggle("hidden");
@@ -92,12 +103,6 @@ const gameOver = () => {
   `;
 
   addHistory(questionText, timeTaken, errorCount);
-
-  // restart everything
-  startTime = null;
-  errorCount = 0;
-  userText = "";
-  display.classList.add("inactive");
 };
 
 const closeModal = () => {
@@ -138,7 +143,8 @@ displayHistory();
 setInterval(() => {
   const currentTime = new Date().getTime();
   const timeSpent = (currentTime - startTime) / 1000;
+  let countTingTimeSpnet = timeSpent.toString().split(".");
   document.getElementById("show-time").innerHTML = `${
-    startTime ? timeSpent.toFixed(0) : 0
+    startTime ? countTingTimeSpnet[0] : 0
   } seconds`;
 }, 1000);
