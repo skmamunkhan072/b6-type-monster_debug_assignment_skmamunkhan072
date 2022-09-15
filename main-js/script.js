@@ -85,17 +85,17 @@ const gameOver = () => {
   display.classList.add("inactive");
   // show result
   resultModal.innerHTML += `
-      <div class="result-contant">
-      <h1>Finished!</h1>
-      <p>You took: <span class="bold">${
-        timeTaken.toFixed(0) ? timeTaken.toFixed(0) : 0
-      }</span> seconds</p>
-      <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
-      <button onclick="closeModal()">Close</button>
+    <div class="result-contant">
+        <h1>Finished!</h1>
+        <p>You took: <span class="bold">${
+          timeTaken.toFixed(0) ? timeTaken.toFixed(0) : 0
+        }</span> seconds</p>
+        <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
+        <button onclick="closeModal()">Close</button>
     </div>
   `;
 
-  addHistory(questionText, timeTaken, errorCount);
+  addHistory(questionText, timeTaken.toFixed(0), errorCount);
   // restart everything
   startTime = null;
   errorCount = 0;
