@@ -4,6 +4,7 @@ const startBtn = document.getElementById("starts");
 const countdownOverlay = document.getElementById("countdown");
 const resultModal = document.getElementById("result");
 const modalBackground = document.getElementById("modal-background");
+const typingSpred = document.getElementById("typing-speed");
 
 // variables
 let userText = "";
@@ -28,9 +29,14 @@ const typeController = (e) => {
   userKey += newLetter;
 
   // Handle backspace press
+  userKey;
   if (newLetter == "Backspace") {
-    userText = userText.slice(0, userText.length - 1);
-    return display.removeChild(display.lastChild);
+    if (userText) {
+      userText = userText.slice(0, userText.length - 1);
+      return display.removeChild(display.lastChild);
+    } else {
+      return;
+    }
   }
 
   // these are the valid character we are allowing to type
@@ -93,15 +99,19 @@ const gameOver = () => {
           timeTaken ? timeTaken : 0
         }</span> seconds</p>
         <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
+        <p>You typing spred ${
+          typingSpred.innerText ? typingSpred.innerText : "noData"
+        } %</p>
         <button onclick="closeModal()">Close</button>
     </div>
   `;
 
-  addHistory(questionText, timeTaken, errorCount);
+  addHistory(questionText, timeTaken, errorCount, typingSpred.innerText);
   // restart everything
   startTime = null;
   errorCount = 0;
   userText = "";
+  typingSpred.innerText = "";
 };
 
 const closeModal = () => {
@@ -149,19 +159,28 @@ setInterval((e) => {
 }, 1000);
 
 const typingSpredTime = (time) => {
-  const typingSpred = document.getElementById("typing-speed");
   if (userKey) {
-    let totalTime = time;
-    let userKeyLength = userKey.length;
-    let totalSpred = (userKeyLength - totalTime) * 60;
-    const fainerSpread = totalSpred.toString();
-    console.log(fainerSpread);
-    typingSpred.innerText = `Your typing speed : ${
-      fainerSpread ? fainerSpread : 0
-    }`;
-    userKey = "";
+    const totalTime = time;
+    const userKeyLength = userKey.length;
+
+    const totalSpred = (userKeyLength / totalTime) * 60;
+    const fainerSpread = parseInt(totalSpred).toString();
+    if (fainerSpread.length > 2) {
+      const typingFainelSprit = fainerSpread.substring(0, 2);
+      if (typingFainelSprit === "Na") {
+        return;
+      } else {
+        typingSpred.innerText = `Your typing speed : ${
+          typingFainelSprit ? typingFainelSprit : 0
+        }`;
+      }
+    } else {
+      typingSpred.innerText = `Your typing speed : ${
+        fainerSpread ? fainerSpread : 0
+      }`;
+    }
   } else {
     return;
   }
+  userKey = "";
 };
-start();

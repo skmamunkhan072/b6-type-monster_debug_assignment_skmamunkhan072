@@ -1,5 +1,5 @@
 const histories = document.getElementById("histories");
-function addHistory(questionText, timeTaken, errorCount) {
+function addHistory(questionText, timeTaken, errorCount, typingSpred) {
   const newRow = document.createElement("div");
   newRow.classList.add("col");
   newRow.innerHTML = `
@@ -8,6 +8,7 @@ function addHistory(questionText, timeTaken, errorCount) {
     <h3 class="card-title">${questionText}</h3>
     <p class="m-0 card-text">You took: <span class="bold">${timeTaken}</span> seconds</p>
     <p class="m-0 card-text">You made <span class="bold red">${errorCount}</span> mistakes</p>
+    <p class="m-0 card-text">You typing spred <span class="bold red">${typingSpred}</span> mistakes</p>
   </div>
 </div>
   `;
@@ -15,10 +16,9 @@ function addHistory(questionText, timeTaken, errorCount) {
   histories.appendChild(newRow);
 
   let previousTests = JSON.parse(localStorage.getItem("testHistory")) || [];
-  previousTests.push({ questionText, timeTaken, errorCount });
+  previousTests.push({ questionText, timeTaken, errorCount, typingSpred });
 
   localStorage.setItem("testHistory", JSON.stringify(previousTests));
-
   displayHistory();
 }
 
@@ -36,6 +36,7 @@ function displayHistory() {
       <h3 class="card-title">${test.questionText}</h3>
       <p class="m-0 card-text">You took: <span class="bold">${test.timeTaken}</span> seconds</p>
       <p class="m-0 card-text">You made <span class="bold red">${test.errorCount}</span> mistakes</p>
+      <p class="m-0 card-text">${test.typingSpred} %</p>
     </div>
   </div>
 
