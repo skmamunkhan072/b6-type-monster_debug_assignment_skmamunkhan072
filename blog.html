@@ -13,6 +13,10 @@
       crossorigin="anonymous"
     />
     <!-- bootstrap cdn css lin Ends  hear  -->
+
+    <!-- main css link starts hear  -->
+    <link rel="stylesheet" href="main-css/main.css" />
+    <!-- main css link Ends  hear  -->
   </head>
   <body class="bg-black">
     <!-- header starts hear  -->
@@ -28,9 +32,9 @@
       <div class="container overflow-hidden">
         <div class="row gy-5">
           <!-- question card starts hear  -->
-          <div class="col-6">
+          <div class="col-6 h-100">
             <div class="p-3">
-              <div class="card">
+              <div class="card card-content">
                 <div class="card-body">
                   <h5 class="card-title text-center">
                     Difference in local storage and session storage
@@ -55,9 +59,9 @@
           </div>
           <!-- question card Ends hear  -->
           <!-- question card starts hear  -->
-          <div class="col-6">
+          <div class="col-6 h-100">
             <div class="p-3">
-              <div class="card">
+              <div class="card card-content">
                 <div class="card-body">
                   <h5 class="card-title text-center">
                     What is difference between global scope and block scope?
@@ -83,9 +87,9 @@
           </div>
           <!-- question card Ends hear  -->
           <!-- question card starts hear  -->
-          <div class="col-6">
+          <div class="col-6 h-100">
             <div class="p-3">
-              <div class="card">
+              <div class="card card-content">
                 <div class="card-body">
                   <h5 class="card-title">
                     How does javascript event loop work
@@ -108,26 +112,21 @@
           </div>
           <!-- question card Ends hear  -->
           <!-- question card starts hear  -->
-          <div class="col-6">
+          <div class="col-6 h-100">
             <div class="p-3">
-              <div class="card">
+              <div class="card card-content">
                 <div class="card-body">
                   <h5 class="card-title">
-                    Difference in local storage and session storage
+                    We can get undefined in about 8 ways
                   </h5>
                   <p class="card-text">
-                    localStorage - use for long term use. sessionStorage - use
-                    when you need to store somthing that changes or somthing
-                    temporar.The only difference is that localStorage has a
-                    different expiration time, sessionStorage will only be
-                    accessible while and by the window that created it is open.
-                    localStorage lasts until you delete it or the user deletes
-                    it. Lets say that you wanted to save a login username and
-                    password you would want to use sessionStorageover
-                    localStorage for security reasons (ie. another person
-                    accessing their account at a later time). But if you wanted
-                    to save a user's settings on their machine you would
-                    probably want localStorage. All in all:
+                    1. variable that is nt initialized will give undefined 2.
+                    function with no return 3. Parameter that is not passed will
+                    be undefined 4. if return has nothing on the right side will
+                    return undefined 5. property that doesn't exists on an
+                    object will give you undefiend 6. accessing array elements
+                    outside of the index renge 7. deleting an element inside an
+                    array 8. set a value directly to undefiend
                   </p>
                 </div>
               </div>
