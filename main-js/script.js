@@ -12,7 +12,7 @@ let startTime;
 let questionText = "";
 
 // Load and display question
-fetch("./texts.json")
+fetch("../json/texts.json")
   .then((res) => res.json())
   .then((data) => {
     questionText = data[Math.floor(Math.random() * data.length)];
@@ -130,7 +130,7 @@ const start = () => {
   }, 1000);
 };
 
-// START Countdown
+// START Countdownlo
 startBtn.addEventListener("click", start);
 
 // If history exists, show it
