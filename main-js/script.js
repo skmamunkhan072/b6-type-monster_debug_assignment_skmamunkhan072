@@ -10,6 +10,7 @@ let userText = "";
 let errorCount = 0;
 let startTime;
 let questionText = "";
+let userKey = "";
 
 // Load and display question
 fetch("../json/texts.json")
@@ -20,9 +21,11 @@ fetch("../json/texts.json")
   });
 
 let vul = 0;
+
 // checks the user typed character and displays accordingly
 const typeController = (e) => {
   const newLetter = e.key;
+  userKey += newLetter;
 
   // Handle backspace press
   if (newLetter == "Backspace") {
@@ -38,7 +41,6 @@ const typeController = (e) => {
   if (!validLetters.includes(newLetter)) {
     return;
   }
-
   userText += newLetter;
 
   const newLetterCorrect = validate(newLetter);
@@ -66,14 +68,14 @@ const validate = (key) => {
   errorCount++;
   return false;
 };
+
 // FINISHED TYPING
 const gameOver = () => {
   document.removeEventListener("keydown", typeController);
   // the current time is the finish time
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
-  const timeTaken = (finishTime - startTime) / 1000;
-
+  const timeTaken = parseInt((finishTime - startTime) / 1000);
   display.classList.add("inactive");
   // show result modal
   resultModal.innerHTML = "";
@@ -88,14 +90,14 @@ const gameOver = () => {
     <div class="result-contant">
         <h1>Finished!</h1>
         <p>You took: <span class="bold">${
-          timeTaken.toFixed(0) ? timeTaken.toFixed(0) : 0
+          timeTaken ? timeTaken : 0
         }</span> seconds</p>
         <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
         <button onclick="closeModal()">Close</button>
     </div>
   `;
 
-  addHistory(questionText, timeTaken.toFixed(0), errorCount);
+  addHistory(questionText, timeTaken, errorCount);
   // restart everything
   startTime = null;
   errorCount = 0;
@@ -121,6 +123,7 @@ const start = () => {
     if (count == 0) {
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
+
       countdownOverlay.style.display = "none";
       display.classList.remove("inactive");
       clearInterval(startCountdown);
@@ -132,16 +135,33 @@ const start = () => {
 
 // START Countdownlo
 startBtn.addEventListener("click", start);
-
 // If history exists, show it
 displayHistory();
 
 // Show typing time spent
-setInterval(() => {
+setInterval((e) => {
   const currentTime = new Date().getTime();
-  const timeSpent = (currentTime - startTime) / 1000;
-  let countTingTimeSpnet = timeSpent.toString().split(".");
+  const timeSpent = parseInt((currentTime - startTime) / 1000);
+  typingSpredTime(timeSpent);
   document.getElementById("show-time").innerHTML = `${
-    startTime ? countTingTimeSpnet[0] : 0
+    startTime ? timeSpent : 0
   } seconds`;
 }, 1000);
+
+const typingSpredTime = (time) => {
+  const typingSpred = document.getElementById("typing-speed");
+  if (userKey) {
+    let totalTime = time;
+    let userKeyLength = userKey.length;
+    let totalSpred = (userKeyLength - totalTime) * 60;
+    const fainerSpread = totalSpred.toString();
+    console.log(fainerSpread);
+    typingSpred.innerText = `Your typing speed : ${
+      fainerSpread ? fainerSpread : 0
+    }`;
+    userKey = "";
+  } else {
+    return;
+  }
+};
+start();
