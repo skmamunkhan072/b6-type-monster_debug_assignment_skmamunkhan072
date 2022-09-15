@@ -42,7 +42,6 @@ const typeController = (e) => {
   userText += newLetter;
 
   const newLetterCorrect = validate(newLetter);
-
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${
       newLetter === " " ? "▪" : newLetter
@@ -51,8 +50,6 @@ const typeController = (e) => {
     display.innerHTML += `<span class="red">${
       newLetter === " " ? "▪" : newLetter
     }</span>`;
-    errorCount++;
-    vul = 1;
   }
 
   // check if given question text is equal to user typed text
@@ -60,16 +57,15 @@ const typeController = (e) => {
     gameOver();
   }
 };
-console.log(errorCount);
-console.log(vul);
 
+// let falsCount = 0;
 const validate = (key) => {
   if (key === questionText[userText.length - 1]) {
     return true;
   }
+  errorCount++;
   return false;
 };
-
 // FINISHED TYPING
 const gameOver = () => {
   document.removeEventListener("keydown", typeController);
@@ -78,12 +74,7 @@ const gameOver = () => {
   const finishTime = new Date().getTime();
   const timeTaken = (finishTime - startTime) / 1000;
 
-  // restart everything
-  startTime = null;
-  errorCount = 0;
-  userText = "";
   display.classList.add("inactive");
-  console.log(errorCount);
   // show result modal
   resultModal.innerHTML = "";
   resultModal.classList.toggle("hidden");
@@ -96,13 +87,19 @@ const gameOver = () => {
   resultModal.innerHTML += `
       <div class="result-contant">
       <h1>Finished!</h1>
-      <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
+      <p>You took: <span class="bold">${
+        timeTaken.toFixed(0) ? timeTaken.toFixed(0) : 0
+      }</span> seconds</p>
       <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
       <button onclick="closeModal()">Close</button>
     </div>
   `;
 
   addHistory(questionText, timeTaken, errorCount);
+  // restart everything
+  startTime = null;
+  errorCount = 0;
+  userText = "";
 };
 
 const closeModal = () => {
