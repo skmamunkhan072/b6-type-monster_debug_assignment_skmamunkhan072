@@ -3,7 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-.card-content {
-  height: 300px !important;
+@media screen and (min-width: 991px) {
+  .card-content {
+    height: 430px !important;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .card-content {
+    height: 300px !important;
+  }
 }
